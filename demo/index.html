@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>framePlayer demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      img {
+        display: block;
+      }
+      .player {
+        width: 350px;
+        height: 670px;
+        position: relative;
+        background-color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="player" id="player"></div>
+    <button id="playBtn">播放</button>
+    <button id="pauseBtn">暂停</button>
+    <script src="../dist/bundle.js"></script>
+  </body>
+
+  <script>
+    function getFile(src, callback) {
+      var _HTTP = new XMLHttpRequest(),
+        _self = this,
+        p = document.createElement("p");
+
+      if (_HTTP) {
+        _HTTP.open("GET", src, true);
+        _HTTP.setRequestHeader(
+          "Content-Type",
+          "application/json;charset=UTF-8"
+        );
+        _HTTP.send(null);
+
+        _HTTP.onprogress = function () {
+          // p.innerHTML = "Loading...";
+          // p.setAttribute("class", "fp-loading");
+          // _self.divCont.appendChild(p);
+        };
+
+        if (typeof _HTTP.onload !== undefined) {
+          _HTTP.onload = function (res) {
+            // _self.divCont.removeChild(p);
+            // _self.jsonVideoFile = JSON.parse(this.responseText);
+            callback(res);
+            _HTTP = null;
+          };
+        } else {
+          _HTTP.onreadystatechange = function (res) {
+            if (_HTTP.readyState === 4) {
+              // _self.divCont.removeChild(p);
+              // _self.jsonVideoFile = JSON.parse(this.responseText);
+              callback(res);
+              _HTTP = null;
+            }
+          };
+        }
+      } else {
+        throw "Error loading file.";
+      }
+    }
+
+
+    // 确保图片加载完成，避免draw时卡顿
+    function loadImages (Parameter) {
+      var sources = Parameter.loadArr;
+      var loadingPercent = "";
+      var count = 0;
+      var images = {};
+      var imgNum = sources.length;
+      for (var src in sources) {
+        var path = src;
+        images[path] = new Image();
+        images[path].onload = function () {
+          count++;
+          if (count >= imgNum) {
+            Parameter.complete(images);
+          }
+        };
+        images[path].onerror = function () {
+          count++;
+          if (count >= imgNum) {
+            Parameter.complete(images);
+          }
+        };
+        images[path].src = sources[path];
+      }
+    };
+    var imgArr = [];
+    for (var i = 1; i < 402; i++) {
+      imgArr.push("frame/" + i + ".png");
+    }
+    window.onload = () => {
+
+      loadImages({
+        loadArr: imgArr,
+        complete: () => {
+          const framePlayer = new window.FramePlayer({
+            dom: document.querySelector("#player"),
+            imgArr: imgArr,
+            loop: 1,
+            reverse: true,
+            useCanvas: true,
+            fps: 40,
+          });
+          // framePlayer.play();
+
+          document.querySelector("#playBtn").onclick = ()=>{
+            framePlayer.play()
+          }
+
+          document.querySelector("#pauseBtn").onclick = ()=>{
+            framePlayer.pause()
+          }
+        },
+      });
+
+     
+    };
+
+  </script>
+</html>

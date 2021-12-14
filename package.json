@@ -1,5 +1,5 @@
 {
-  "name": "@bilibili/framePlayer",
+  "name": "framePlayer",
   "version": "0.0.5-alpha.9",
   "main": "./dist/bundle.js",
   "scripts": {
@@ -8,20 +8,17 @@
     "reload": "livereload 'src/'",
     "watch": "npm-run-all --parallel start",
     "prepare": "npm run build",
-    "postpublish": "git push --tags",
-    "release:stable": "npm publish --registry=http://registry.npm.bilibili.co",
-    "release:alpha": "npm version prerelease --preid=alpha && npm publish --tag alpha --registry=http://registry.npm.bilibili.co",
-    "release:alpha-test": "npm publish --tag alpha-test --registry=http://registry.npm.bilibili.co"
+    "postpublish": "git push --tags"
   },
-  "author": "zhuzeliang@bilibili.com",
+  "author": "",
   "license": "MIT",
-  "description": "sdk",
+  "description": "framePlayer",
   "keywords": [
-    "sdk"
+    "framePlayer"
   ],
   "repository": {
     "type": "git",
-    "url": "http://npm.bilibili.co/package/@bilibili/framePlayer"
+    "url": ""
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
