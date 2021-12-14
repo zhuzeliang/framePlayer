@@ -1,0 +1,56 @@
+{
+  "name": "@bilibili/framePlayer",
+  "version": "0.0.5-alpha.9",
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development rollup -c -w",
+    "build": "rimraf ./dist && cross-env NODE_ENV=production rollup -c",
+    "reload": "livereload 'src/'",
+    "watch": "npm-run-all --parallel start",
+    "prepare": "npm run build",
+    "postpublish": "git push --tags",
+    "release:stable": "npm publish --registry=http://registry.npm.bilibili.co",
+    "release:alpha": "npm version prerelease --preid=alpha && npm publish --tag alpha --registry=http://registry.npm.bilibili.co",
+    "release:alpha-test": "npm publish --tag alpha-test --registry=http://registry.npm.bilibili.co"
+  },
+  "author": "zhuzeliang@bilibili.com",
+  "license": "MIT",
+  "description": "sdk",
+  "keywords": [
+    "sdk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://npm.bilibili.co/package/@bilibili/framePlayer"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/runtime": "^7.7.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-latest": "^6.24.1",
+    "cross-env": "^5.2.1",
+    "cssnano": "^4.1.10",
+    "moment": "^2.24.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-nested": "^4.2.1",
+    "postcss-simple-vars": "^5.0.2",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.26.5",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-livereload": "^1.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-postcss": "^2.5.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-serve": "^1.0.1",
+    "rollup-plugin-uglify": "^6.0.3",
+    "rollup-watch": "^4.3.1"
+  },
+  "dependencies": {}
+}
